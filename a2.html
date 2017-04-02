@@ -31,7 +31,14 @@
 		  Mouse over me.
 		</span>
 		<div ng-show="show">Hello!</div>	 -->
-		<img src="H:\BaiduYunDownload\Augular JS Practise\My Photo.jpg" ng-click="zoom()" ng-class="{normal:n, big:b}"/>
+		<div>
+			<img src="H:\BaiduYunDownload\Augular JS Practise\My Photo.jpg" ng-click="zoom()" ng-class="{normal:n, big:b}"/>
+			<img src="H:\BaiduYunDownload\Augular JS Practise\OtherPhoto.jpg" ng-click="lookimg('OtherPhoto.jpg')" ng-class="{normal:n, big:b}"/>
+<!-- 			<img src="button/submit1.gif" onclick="window.open('页面地址')">	 -->		
+		</div>
+<!-- 		<div>
+			<img src="H:\BaiduYunDownload\Augular JS Practise\Other Photo.jpg" ng-click="zoom()" ng-class="{normal:n, big:b}"/>
+		</div> -->
 	</div>
 	<script type='text/javascript'>
 		angular.module('a10_1', [])
@@ -50,6 +57,13 @@
 				        i = 0;
 				    }
 				}
+
+
+				$scope.lookimg = function(str){				
+					// var str = "H:\BaiduYunDownload\Augular JS Practise\Other Photo.jpg";
+					var newwin=window.open() 
+					newwin.document.write("<img src="+str+" />") 
+				} 				
 				// $scope.hello='Hello, Angular !';
 				// $scope.log=function() {
 				// 	console.log('This is method added dynamically !');
