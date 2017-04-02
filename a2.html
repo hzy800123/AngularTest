@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<HTML ng-app='a10_1'>
+<head>
+	<title>Call the element method to control DOM element</title>
+	<script src='H:\BaiduYunDownload\Augular JS Practise\angular.min.js' type='text/javascript'></script>
+	<style type='text/css'>
+/*		.frame {
+			padding: 5px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+		.frame div{
+			margin: 10px 0px;
+		}*/
+
+		img.normal{
+		    width : 100px;
+		}
+		img.big{
+		    width:200px;
+		}		
+	</style>
+</head>
+<body>
+	<div ng-controller='c10_1' class='frame' id='control'>
+<!-- 		<button ng-click='add()'>Add one element</button>
+		<button ng-click='del()'>Delete one element</button> -->
+<!-- 		<span ng-mouseenter="show = true" ng-mouseleave="show = false">
+		  Mouse over me.
+		</span>
+		<div ng-show="show">Hello!</div>	 -->
+		<img src="H:\BaiduYunDownload\Augular JS Practise\My Photo.jpg" ng-click="zoom()" ng-class="{normal:n, big:b}"/>
+	</div>
+	<script type='text/javascript'>
+		angular.module('a10_1', [])
+			.controller('c10_1', function($scope, $compile){
+				var i =0;
+				$scope.n = true;
+				$scope.b = false;
+				$scope.zoom = function(){
+				    if( i%2 == 0){
+				        $scope.n = false;
+				        $scope.b = true;
+				        i = 1;
+				    }else{
+				        $scope.n = true;
+				        $scope.b = false;
+				        i = 0;
+				    }
+				}
+				// $scope.hello='Hello, Angular !';
+				// $scope.log=function() {
+				// 	console.log('This is method added dynamically !');
+				// }
+
+				// var html="<div ng-click='log()'>{{hello}}</div>";
+				// var template=angular.element(html);
+				// var newHtml=$compile(template)($scope);
+
+				// $scope.add=function() {
+				// 	angular.element(document.getElementById('control')).append(newHtml);
+				// };
+
+				// $scope.del=function() {
+				// 	if(newHtml) {
+				// 		newHtml.remove();
+				// 	}
+				// }				
+			});
+	</script>
+</body>
+</HTML>
