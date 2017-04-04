@@ -1,48 +1,103 @@
 <!DOCTYPE HTML>
 <HTML ng-app='a10_1'>
 <head>
-	<title>Call the element method to control DOM element</title>
-	<script src='H:\BaiduYunDownload\Augular JS Practise\angular.min.js' type='text/javascript'></script>
+	<title>OT Statistics</title>
+	<script src='lib\angular.min.js' type='text/javascript'></script>
 	<style type='text/css'>
-/*		.frame {
-			padding: 5px 8px;
-			margin: 0px;
-			font-size: 12px;
-			width: 320px;
-			background-color: #eee;
-		}
-		.frame div{
-			margin: 10px 0px;
-		}*/
-
 		img.normal{
+			margin: 5px;
+			padding: 5px;			
 		    width : 100px;
+		    height: 60px;
+		    cursor: pointer;
 		}
 		img.big{
 		    width:200px;
-		}		
+		}
+		ul {
+			margin: 0px;
+			padding: 0px;
+			list-style-type: none;
+		}
+
+		ul li:first-child {
+			height: 58px;
+			font-weight: bold;
+			font-size: 15px;
+			color: blue;
+			cursor: pointer;
+		}
+		ul li {
+			height: 88px;
+			line-height: 58px;
+			border-bottom: dashed 1px #ccc;
+		}
+		.OT {
+			padding-left: 50px;
+			width: 80px;
+		}
+		ul li span {
+			float: left;
+			width: 130px;
+		}
+		ul li span progress {
+			margin-left: 0px;
+			width: 100px;			
+		}
+		ul li span:last-child {
+			cursor: pointer;
+		}
+
+		#nameKey{
+			margin: 10px;
+			padding: 5px;
+		}
 	</style>
 </head>
 <body>
 	<div ng-controller='c10_1' class='frame' id='control'>
-<!-- 		<button ng-click='add()'>Add one element</button>
-		<button ng-click='del()'>Delete one element</button> -->
-<!-- 		<span ng-mouseenter="show = true" ng-mouseleave="show = false">
-		  Mouse over me.
-		</span>
-		<div ng-show="show">Hello!</div>	 -->
 		<div>
-			<img src="H:\BaiduYunDownload\Augular JS Practise\My Photo.jpg" ng-click="zoom()" ng-class="{normal:n, big:b}"/>
-			<img src="H:\BaiduYunDownload\Augular JS Practise\OtherPhoto.jpg" ng-click="lookimg('OtherPhoto.jpg')" ng-class="{normal:n, big:b}"/>
-<!-- 			<img src="button/submit1.gif" onclick="window.open('页面地址')">	 -->		
+			<input id = 'nameKey' type = 'text' ng-model = 'key' placeholder= 'Please input Staff Name'>
 		</div>
-<!-- 		<div>
-			<img src="H:\BaiduYunDownload\Augular JS Practise\Other Photo.jpg" ng-click="zoom()" ng-class="{normal:n, big:b}"/>
-		</div> -->
+		<div>
+		<span></span>
+		</div>
+		<ul>
+			<li>
+				<span ng-click=" title = 'id'; desc = !desc ">Staff ID</span>
+				<span ng-click=" title = 'name'; desc = !desc ">Name</span>
+				<span ng-click=" title = 'OTHours'; desc = !desc ">OT Hours</span>
+				<span ng-click=" title = 'OTHours'; desc = !desc ">OT Progress</span>
+				<span>MAPS Screens</span>
+			</li>
+			<li ng-repeat='item in items | filter : {name:key} | orderBy: title : desc'>
+				<span>{{item.id}}</span>
+				<span>{{item.name}}</span>
+				<span class='OT'>{{item.OTHours}}</span>
+				<span><progress value={{item.OTHours}} max="36"></progress></span>
+					<img ng-src="img\{{item.id}}\1.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
+					<img ng-src="img\{{item.id}}\2.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
+					<img ng-src="img\{{item.id}}\3.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
+					<img ng-src="img\{{item.id}}\4.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
+					<img ng-src="img\{{item.id}}\5.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>
+			</li>
+		</ul>
+		<div>
+			<img src="img\My Photo.jpg" ng-click="zoom()" ng-class="{normal:n, big:b}"/>
+			<img src="img\OtherPhoto.jpg" ng-click="lookimg('img', 'OtherPhoto.jpg')" ng-class="{normal:n, big:b}"/>	
+			<img src="img\OtherPhoto2.jpg" ng-click="lookimg('img', 'OtherPhoto2.jpg')" ng-class="{normal:n, big:b}"/>
+		</div>
 	</div>
 	<script type='text/javascript'>
-		angular.module('a10_1', [])
-			.controller('c10_1', function($scope, $compile){
+		var app = angular.module("a10_1", []);
+		app.controller('c10_1', function($scope, $compile){
+
+				$scope.items = getStaffInfo();
+				$scope.title = 'name';
+				$scope.key = '';
+				$scope.desc = 0;
+				
+
 				var i =0;
 				$scope.n = true;
 				$scope.b = false;
@@ -58,31 +113,43 @@
 				    }
 				}
 
+				function getStaffInfo(){
+					return [
+						{ id: 43176151, name: 'John Z Y Huang', OTHours: 10 },
+						{ id: 43123456, name: 'Jack A B Ling', OTHours: 8 },
+						{ id: 44135790, name: 'King X Y Zhang', OTHours: 12 },
+						{ id: 44135790, name: 'John M L Liang', OTHours: 36 },
+						{ id: 44135790, name: 'Tom T K Wu', OTHours: 12 }
+					]
+				};
 
-				$scope.lookimg = function(str){				
+				$scope.lookimg = function(event){				
 					// var str = "H:\BaiduYunDownload\Augular JS Practise\Other Photo.jpg";
-					var newwin=window.open() 
-					newwin.document.write("<img src="+str+" />") 
-				} 				
-				// $scope.hello='Hello, Angular !';
-				// $scope.log=function() {
-				// 	console.log('This is method added dynamically !');
-				// }
+					var fullPath = event.target.getAttribute("src");
+					// alert(fullPath);
+					if (fullPath != 'img/404.jpg'){
+						var newwin=window.open() 
+						newwin.document.write("<img src="+fullPath+" />") 
+					}
+				}
 
-				// var html="<div ng-click='log()'>{{hello}}</div>";
-				// var template=angular.element(html);
-				// var newHtml=$compile(template)($scope);
-
-				// $scope.add=function() {
-				// 	angular.element(document.getElementById('control')).append(newHtml);
-				// };
-
-				// $scope.del=function() {
-				// 	if(newHtml) {
-				// 		newHtml.remove();
-				// 	}
-				// }				
 			});
+
+		app.directive('errSrc', function() {
+		  return {
+ 		    restrict: "EAC",
+ 		    replace: true,
+		    link: function($scope, element, attrs) {
+		      element.bind('error', function() {
+		        if (attrs.src != attrs.errSrc) {
+		          	attrs.$set('src', attrs.errSrc);
+		          	// attrs.$set('cursor', '')
+		        }
+		      });
+		    }
+		  }
+		});
+
 	</script>
 </body>
 </HTML>
