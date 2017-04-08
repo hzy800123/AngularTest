@@ -20,13 +20,6 @@
 			list-style-type: none;
 		}
 
-		ul li:first-child {
-			height: 58px;
-			font-weight: bold;
-			font-size: 15px;
-			color: blue;
-			cursor: pointer;
-		}
 		ul li {
 			height: 88px;
 			line-height: 58px;
@@ -44,11 +37,32 @@
 			margin-left: 0px;
 			width: 100px;			
 		}
+
+		ul li:first-child {
+			height: 58px;
+			font-weight: bold;
+			font-size: 15px;
+			color: blue;
+			cursor: pointer;
+		}
+
 		ul li span:last-child {
 			cursor: pointer;
 		}
 
-		#nameKey{
+		.striped {
+			color: #069;
+ 			background-color: white;
+		}
+
+		#month {
+			margin: 10px;
+			padding: 5px;
+			font-weight: bold;
+			color: purple;
+		}
+
+		#nameKey {
 			margin: 10px;
 			padding: 5px;
 		}
@@ -57,6 +71,7 @@
 <body>
 	<div ng-controller='c10_1' class='frame' id='control'>
 		<div>
+			<select id = 'month' ng-init="selectedMonth = months[0]" ng-model="selectedMonth" ng-options="x for x in months"></select>
 			<input id = 'nameKey' type = 'text' ng-model = 'key' placeholder= 'Please input Staff Name'>
 		</div>
 		<div>
@@ -70,16 +85,22 @@
 				<span ng-click=" title = 'OTHours'; desc = !desc ">OT Progress</span>
 				<span>MAPS Screens</span>
 			</li>
-			<li ng-repeat='item in items | filter : {name:key} | orderBy: title : desc'>
+			<li ng-repeat='item in items | filter : {name:key} | filter: selectedMonth | orderBy: title : desc' ng-class-even='"striped"'>
 				<span>{{item.id}}</span>
 				<span>{{item.name}}</span>
 				<span class='OT'>{{item.OTHours}}</span>
 				<span><progress value={{item.OTHours}} max="36"></progress></span>
-					<img ng-src="img\{{item.id}}\1.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
+					<img ng-src="img\{{selectedMonth}}\{{item.id}}\1.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
+					<img ng-src="img\{{selectedMonth}}\{{item.id}}\2.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
+					<img ng-src="img\{{selectedMonth}}\{{item.id}}\3.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
+					<img ng-src="img\{{selectedMonth}}\{{item.id}}\4.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
+					<img ng-src="img\{{selectedMonth}}\{{item.id}}\5.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>
+
+<!-- 					<img ng-src="img\{{item.id}}\1.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
 					<img ng-src="img\{{item.id}}\2.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
 					<img ng-src="img\{{item.id}}\3.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
 					<img ng-src="img\{{item.id}}\4.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
-					<img ng-src="img\{{item.id}}\5.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>
+					<img ng-src="img\{{item.id}}\5.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/> -->
 			</li>
 		</ul>
 		<div>
@@ -91,7 +112,8 @@
 	<script type='text/javascript'>
 		var app = angular.module("a10_1", []);
 		app.controller('c10_1', function($scope, $compile){
-
+				
+				$scope.months = ["Jan-2017", "Feb-2017", "Mar-2017"];
 				$scope.items = getStaffInfo();
 				$scope.title = 'name';
 				$scope.key = '';
@@ -115,12 +137,29 @@
 
 				function getStaffInfo(){
 					return [
-						{ id: 43176151, name: 'John Z Y Huang', OTHours: 10 },
-						{ id: 43123456, name: 'Jack A B Ling', OTHours: 8 },
-						{ id: 44135790, name: 'King X Y Zhang', OTHours: 12 },
-						{ id: 44135790, name: 'John M L Liang', OTHours: 36 },
-						{ id: 44135790, name: 'Tom T K Wu', OTHours: 12 }
+						{ month: "Jan-2017", id: 43176151, name: 'John Z Y Huang', OTHours: 1 	},
+						{ month: "Jan-2017", id: 43123456, name: 'Jack A B Ling',  OTHours: 8 	},
+						{ month: "Jan-2017", id: 44135790, name: 'King X Y Zhang', OTHours: 2 	},
+						{ month: "Jan-2017", id: 44135790, name: 'John M L Liang', OTHours: 6 	},
+
+						{ month: "Feb-2017", id: 43176151, name: 'John Z Y Huang', OTHours: 20 	},
+						{ month: "Feb-2017", id: 43123456, name: 'Jack A B Ling',  OTHours: 22 	},
+						{ month: "Feb-2017", id: 44135790, name: 'King X Y Zhang', OTHours: 22 	},
+
+						{ month: "Mar-2017", id: 43176151, name: 'John Z Y Huang', OTHours: 30 	},
+						{ month: "Mar-2017", id: 43123456, name: 'Jack A B Ling',  OTHours: 32 	},
+						{ month: "Mar-2017", id: 44135790, name: 'King X Y Zhang', OTHours: 32 	},
+						{ month: "Mar-2017", id: 44135790, name: 'John M L Liang', OTHours: 36 	},
+						{ month: "Mar-2017", id: 44135790, name: 'Tom T K Wu', 	   OTHours: 32 	},					
 					]
+
+					// return [
+					// 	{ id: 43176151, name: 'John Z Y Huang', OTHours: 10 },
+					// 	{ id: 43123456, name: 'Jack A B Ling', OTHours: 8 },
+					// 	{ id: 44135790, name: 'King X Y Zhang', OTHours: 12 },
+					// 	{ id: 44135790, name: 'John M L Liang', OTHours: 36 },
+					// 	{ id: 44135790, name: 'Tom T K Wu', OTHours: 12 }
+					// ]
 				};
 
 				$scope.lookimg = function(event){				
