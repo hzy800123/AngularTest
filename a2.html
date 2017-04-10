@@ -6,14 +6,20 @@
 	<style type='text/css'>
 		img.normal{
 			margin: 5px;
-			padding: 5px;			
+			padding: 5px;
 		    width : 100px;
 		    height: 60px;
 		    cursor: pointer;
 		}
-		img.big{
-		    width:200px;
+
+		img.dummy{
+			margin: 5px;
+			padding: 5px;
+		    width : 100px;
+		    height: 60px;
+		    cursor: default;
 		}
+
 		ul {
 			margin: 0px;
 			padding: 0px;
@@ -46,10 +52,14 @@
 			cursor: pointer;
 		}
 
-		ul li span:last-child {
-			cursor: pointer;
+		.MAPSSreens {
+			height: 58px;
+			font-weight: bold;
+			font-size: 15px;
+			color: blue;
+			cursor: default;			
 		}
-
+		
 		.striped {
 			color: #069;
  			background-color: white;
@@ -83,31 +93,20 @@
 				<span ng-click=" title = 'name'; desc = !desc ">Name</span>
 				<span ng-click=" title = 'OTHours'; desc = !desc ">OT Hours</span>
 				<span ng-click=" title = 'OTHours'; desc = !desc ">OT Progress</span>
-				<span>MAPS Screens</span>
+				<span class = 'MAPSSreens'>MAPS Screens</span>
 			</li>
 			<li ng-repeat='item in items | filter : {name:key} | filter: selectedMonth | orderBy: title : desc' ng-class-even='"striped"'>
 				<span>{{item.id}}</span>
 				<span>{{item.name}}</span>
 				<span class='OT'>{{item.OTHours}}</span>
 				<span><progress value={{item.OTHours}} max="36"></progress></span>
-					<img ng-src="img\{{selectedMonth}}\{{item.id}}\1.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
-					<img ng-src="img\{{selectedMonth}}\{{item.id}}\2.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
-					<img ng-src="img\{{selectedMonth}}\{{item.id}}\3.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
-					<img ng-src="img\{{selectedMonth}}\{{item.id}}\4.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
-					<img ng-src="img\{{selectedMonth}}\{{item.id}}\5.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>
-
-<!-- 					<img ng-src="img\{{item.id}}\1.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
-					<img ng-src="img\{{item.id}}\2.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
-					<img ng-src="img\{{item.id}}\3.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
-					<img ng-src="img\{{item.id}}\4.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/>	
-					<img ng-src="img\{{item.id}}\5.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" ng-class="{normal:n, big:b}"/> -->
+					<img ng-src="img\{{selectedMonth}}\{{item.name}}\1.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" class="normal" err-class='dummy'/>
+					<img ng-src="img\{{selectedMonth}}\{{item.name}}\2.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" class="normal" err-class='dummy'/>	
+					<img ng-src="img\{{selectedMonth}}\{{item.name}}\3.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" class="normal" err-class='dummy'/>	
+					<img ng-src="img\{{selectedMonth}}\{{item.name}}\4.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" class="normal" err-class='dummy'/>	
+					<img ng-src="img\{{selectedMonth}}\{{item.name}}\5.jpg" err-src="img/404.jpg" ng-click="lookimg($event)" class="normal" err-class='dummy'/>
 			</li>
 		</ul>
-		<div>
-			<img src="img\My Photo.jpg" ng-click="zoom()" ng-class="{normal:n, big:b}"/>
-			<img src="img\OtherPhoto.jpg" ng-click="lookimg('img', 'OtherPhoto.jpg')" ng-class="{normal:n, big:b}"/>	
-			<img src="img\OtherPhoto2.jpg" ng-click="lookimg('img', 'OtherPhoto2.jpg')" ng-class="{normal:n, big:b}"/>
-		</div>
 	</div>
 	<script type='text/javascript'>
 		var app = angular.module("a10_1", []);
@@ -119,28 +118,12 @@
 				$scope.key = '';
 				$scope.desc = 0;
 				
-
-				var i =0;
-				$scope.n = true;
-				$scope.b = false;
-				$scope.zoom = function(){
-				    if( i%2 == 0){
-				        $scope.n = false;
-				        $scope.b = true;
-				        i = 1;
-				    }else{
-				        $scope.n = true;
-				        $scope.b = false;
-				        i = 0;
-				    }
-				}
-
 				function getStaffInfo(){
 					return [
 						{ month: "Jan-2017", id: 43176151, name: 'John Z Y Huang', OTHours: 1 	},
 						{ month: "Jan-2017", id: 43123456, name: 'Jack A B Ling',  OTHours: 8 	},
 						{ month: "Jan-2017", id: 44135790, name: 'King X Y Zhang', OTHours: 2 	},
-						{ month: "Jan-2017", id: 44135790, name: 'John M L Liang', OTHours: 6 	},
+						{ month: "Jan-2017", id: 44135792, name: 'John M L Liang', OTHours: 6 	},
 
 						{ month: "Feb-2017", id: 43176151, name: 'John Z Y Huang', OTHours: 20 	},
 						{ month: "Feb-2017", id: 43123456, name: 'Jack A B Ling',  OTHours: 22 	},
@@ -149,26 +132,20 @@
 						{ month: "Mar-2017", id: 43176151, name: 'John Z Y Huang', OTHours: 30 	},
 						{ month: "Mar-2017", id: 43123456, name: 'Jack A B Ling',  OTHours: 32 	},
 						{ month: "Mar-2017", id: 44135790, name: 'King X Y Zhang', OTHours: 32 	},
-						{ month: "Mar-2017", id: 44135790, name: 'John M L Liang', OTHours: 36 	},
-						{ month: "Mar-2017", id: 44135790, name: 'Tom T K Wu', 	   OTHours: 32 	},					
+						{ month: "Mar-2017", id: 44135792, name: 'John M L Liang', OTHours: 36 	},
+						{ month: "Mar-2017", id: 44135796, name: 'Tom T K Wu', 	   OTHours: 32 	},					
 					]
-
-					// return [
-					// 	{ id: 43176151, name: 'John Z Y Huang', OTHours: 10 },
-					// 	{ id: 43123456, name: 'Jack A B Ling', OTHours: 8 },
-					// 	{ id: 44135790, name: 'King X Y Zhang', OTHours: 12 },
-					// 	{ id: 44135790, name: 'John M L Liang', OTHours: 36 },
-					// 	{ id: 44135790, name: 'Tom T K Wu', OTHours: 12 }
-					// ]
 				};
 
 				$scope.lookimg = function(event){				
-					// var str = "H:\BaiduYunDownload\Augular JS Practise\Other Photo.jpg";
 					var fullPath = event.target.getAttribute("src");
-					// alert(fullPath);
-					if (fullPath != 'img/404.jpg'){
-						var newwin=window.open() 
-						newwin.document.write("<img src="+fullPath+" />") 
+					//alert(fullPath);
+					if (fullPath != "img/404.jpg"){
+						var newwin=window.open();
+						//newwin.document.write("<img src='img/Jan-2017/John Z Y Huang/1.jpg'/>");
+						//newwin.document.write("<img src='img/Jan-2017/Jack_A_B_Ling/1.jpg'/>")
+						newwin.document.write("<img src='"+fullPath+"'' />");
+						newwin.document.close();
 					}
 				}
 
@@ -182,12 +159,21 @@
 		      element.bind('error', function() {
 		        if (attrs.src != attrs.errSrc) {
 		          	attrs.$set('src', attrs.errSrc);
-		          	// attrs.$set('cursor', '')
 		        }
 		      });
 		    }
 		  }
-		});
+		}).directive('errClass', function() {
+		  return {
+ 		    restrict: "EAC",
+ 		    replace: true,
+		    link: function($scope, element, attrs) {
+		      element.bind('error', function() {
+	          	attrs.$set('class', attrs.errClass);
+		      });
+		    }
+		  }
+		});		
 
 	</script>
 </body>
